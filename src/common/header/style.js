@@ -50,8 +50,13 @@ export const SearchWapper = styled.div`
         width: 30px;
         line-height: 30px;
         border-radius: 15px;
-        text-align: center;
+        text-align: center;   
+        &.focused {
+            background-color: #666;
+            color: #ccc;
+        }   
     }
+   
 `;
 export const NavSearch = styled.input.attrs({
     placeholder: '搜索'
@@ -60,16 +65,21 @@ export const NavSearch = styled.input.attrs({
     height: 38px;
     margin-top: 9px;
     margin-left: 20px;
-    padding: 0 20px;
+    padding: 0 30px 0 20px;
     box-sizing: border-box;
     border: none;
     outline: none;
     border-radius: 19px;
     background: #eee;
     font-size: 14px;
+    transition: width .2s ease-out;
     &::placeholder {
-        color: #999;
+        color: #666;
     }
+    &.focused {
+        width: 240px;
+    }
+
 `;
 export const Addition = styled.div`
     position: absolute;
@@ -78,7 +88,7 @@ export const Addition = styled.div`
     height: 56px;
 `;
 export const Button = styled.div`
-    float: right
+    float: right;
     margin-top: 9px;
     margin-right: 20px;
     padding: 0 20px;

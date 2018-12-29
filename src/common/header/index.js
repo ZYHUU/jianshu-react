@@ -12,6 +12,14 @@ import {
 } from './style'
 
 class Header extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            focused: false
+        }
+        this.handleInputFocus = this.handleInputFocus.bind(this);
+        this.handelInputBlur = this.handelInputBlur.bind(this);
+    }
     render() {
        return (
           <HeaderWrapper>
@@ -21,17 +29,19 @@ class Header extends Component {
                 <NavItem className='left'>下载App</NavItem>       
                 <NavItem className='right'>登录</NavItem>       
                 <NavItem className='right'>
-                       <i className="iconfont">&#xe636;</i>
-
-                   </NavItem> 
-                   <SearchWapper>
-                       <i className="iconfont">&#xe614;</i>
-                       <NavSearch></NavSearch>
-                   </SearchWapper>
-                      
-                
+                    <i className="iconfont">&#xe636;</i>
+                </NavItem> 
+                    <SearchWapper>
+                        <i className = {this.state.focused ? 'focused iconfont' : 'iconfont'}>&#xe614;</i>
+                        <NavSearch 
+                            className = {this.state.focused ? 'focused' : ''}
+                            onFocus = {this.handleInputFocus}
+                            onBlur = {this.handelInputBlur}
+                        >
+                        </NavSearch>
+                    </SearchWapper>
             </Nav>
-               <Addition>            
+            <Addition>            
                 <Button className='writting'>    
                 <i className="iconfont">&#xe624;</i>    
                 写文章
@@ -40,6 +50,16 @@ class Header extends Component {
             </Addition>
           </HeaderWrapper>  
        ) 
+    }
+    handleInputFocus() {
+        this.setState({
+            focused: true
+        })
+    }
+    handelInputBlur() {
+        this.setState({
+            focused: false
+        })
     }
 }
 
