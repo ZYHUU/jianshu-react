@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { actionCreators }from './store';
 import '../../statics/iconfont/iconfont.css';
 import { 
     HeaderWrapper,
@@ -45,24 +46,19 @@ const Header = (props) => {
 }
 
 const mapStateProps = (state) => {
-    return {
-        focused: state.header.focused
-    }
+    console.log(state)
+    // return {
+    //     focused: state.header.focused
+    // }
 }
 
 const mapDispathToProps = (dispatch) => {
     return {
         handleInputFocus() {
-            const action = {
-                type: 'search_focus'
-            };
-            dispatch(action)
+            dispatch(actionCreators.searchFocus())
         },
         handelInputBlur() {
-            const action = {
-                type: 'search_blur'
-            };
-            dispatch(action)
+            dispatch(actionCreators.searchBlur())
         }
     }
 }
