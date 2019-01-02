@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actionCreators }from './store';
 import '../../statics/iconfont/iconfont.css';
@@ -10,12 +10,38 @@ import {
     SearchWapper,
     NavSearch,
     Addition,
-    Button
+    Button,
+    SearchInfo,
+    SearchInfoTitle,
+    SearchInfoSwitch,
+    SearchInfoItem,
+    SearInfoList
 } from './style'
 
-const Header = (props) => {
-    return (
-        <HeaderWrapper>
+class Header extends Component {
+    getListArea = (show) => {
+        if(show) {
+            return (
+                <SearchInfo>
+                    <SearchInfoTitle>
+                    热门搜索
+                    <SearchInfoSwitch>换一批</SearchInfoSwitch>
+                    </SearchInfoTitle>
+                    <SearInfoList>
+                    <SearchInfoItem>web</SearchInfoItem>
+                    <SearchInfoItem>java</SearchInfoItem>
+                    <SearchInfoItem>php</SearchInfoItem>
+                    <SearchInfoItem>python</SearchInfoItem>
+                    <SearchInfoItem>react</SearchInfoItem>
+                    <SearchInfoItem>教育</SearchInfoItem>
+                    </SearInfoList>  
+                </SearchInfo>  
+            )
+        }
+    }
+    render() {
+        return (
+            <HeaderWrapper>
           <Logo />
           <Nav>
               <NavItem className='left active'>首页</NavItem>       
@@ -25,13 +51,14 @@ const Header = (props) => {
                   <i className="iconfont">&#xe636;</i>
               </NavItem> 
               <SearchWapper>
-                  <i className = {props.focused ? 'focused iconfont' : 'iconfont'}>&#xe614;</i>
                   <NavSearch 
-                      className = {props.focused ? 'focused' : ''}
-                      onFocus = {props.handleInputFocus}
-                      onBlur = {props.handelInputBlur}
+                    className = {this.props.focused ? 'focused' : ''}
+                    onFocus = {this.props.handleInputFocus}
+                    onBlur = {this.props.handelInputBlur}
                   >
                   </NavSearch>
+                  <i className = {this.props.focused ? 'focused iconfont' : 'iconfont'}>&#xe614;</i>
+                { this.getListArea(this.props.focused)}
               </SearchWapper>
           </Nav>
           <Addition>            
@@ -42,7 +69,9 @@ const Header = (props) => {
               <Button className='reg'>注册</Button>             
           </Addition>
         </HeaderWrapper>  
-     ) 
+        )
+    
+    }  
 }
 
 const mapStateProps = (state) => {

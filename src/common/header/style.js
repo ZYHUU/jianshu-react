@@ -46,7 +46,7 @@ export const SearchWapper = styled.div`
     .iconfont{
         position: absolute;
         right: 5px;
-        bottom: 5px;
+        top: 10px;
         width: 30px;
         line-height: 30px;
         border-radius: 15px;
@@ -79,7 +79,37 @@ export const NavSearch = styled.input.attrs({
     &.focused {
         width: 240px;
     }
-
+`;
+export const SearchInfo = styled.div`
+    position: absolute;
+    left: 0;
+    top: 56px;
+    width: 240px;
+    padding: 0 20px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, .2);
+`;
+export const SearchInfoTitle = styled.div`
+    margin: 20px 0 15px 0;
+    line-height: 20px;
+    font-size: 14px;
+    color: #969696;
+`;
+export const SearchInfoSwitch = styled.span`
+    float: right;
+    font-size: 13px;
+`; 
+export const SearchInfoItem = styled.a`
+    display: block;
+    float: left;
+    line-height: 20px;
+    padding: 0 5px;
+    margin: 0 10px 15px 0;
+    font-size: 12px;
+    border: 1pxx solid #ddd;
+    color: #787878;
+    border-radius: 3px;  
+`;
+export const SearInfoList = styled.div`
 `;
 export const Addition = styled.div`
     position: absolute;
