@@ -19,8 +19,9 @@ import {
 } from './style'
 
 class Header extends Component {
-    getListArea = (show) => {
-        if(show) {
+    getListArea (){
+        if (this.props.focused) {
+            console.log(this)
             return (
                 <SearchInfo>
                     <SearchInfoTitle>
@@ -28,12 +29,12 @@ class Header extends Component {
                     <SearchInfoSwitch>换一批</SearchInfoSwitch>
                     </SearchInfoTitle>
                     <SearInfoList>
-                    <SearchInfoItem>web</SearchInfoItem>
-                    <SearchInfoItem>java</SearchInfoItem>
-                    <SearchInfoItem>php</SearchInfoItem>
-                    <SearchInfoItem>python</SearchInfoItem>
-                    <SearchInfoItem>react</SearchInfoItem>
-                    <SearchInfoItem>教育</SearchInfoItem>
+                        { 
+                            this.props.list.map((item) => {
+                                return <SearchInfoItem key={item}>{item}</SearchInfoItem>
+                            })
+                           
+                        }
                     </SearInfoList>  
                 </SearchInfo>  
             )
@@ -58,7 +59,7 @@ class Header extends Component {
                   >
                   </NavSearch>
                   <i className = {this.props.focused ? 'focused iconfont' : 'iconfont'}>&#xe614;</i>
-                { this.getListArea(this.props.focused)}
+                { this.getListArea()}
               </SearchWapper>
           </Nav>
           <Addition>            
@@ -77,14 +78,17 @@ class Header extends Component {
 const mapStateProps = (state) => {
     console.log(state)
     return {
-        focused: state.header.focused
+        focused: state.header.focused,
+        list: state.header.list
     }
 }
 
 const mapDispathToProps = (dispatch) => {
     return {
         handleInputFocus() {
-            dispatch(actionCreators.searchFocus())
+            dispatch(actionCreators.searchFocus());
+            dispatch(actionCreators.getList());
+            console.log(this)
         },
         handelInputBlur() {
             dispatch(actionCreators.searchBlur())
