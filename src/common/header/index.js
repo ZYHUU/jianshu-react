@@ -19,28 +19,35 @@ import {
 } from './style'
 
 class Header extends Component {
-    getListArea (){
-        if (this.props.focused) {
-            console.log(this)
+    getListArea() {
+        const { focused, list, mouseIn, page, totalPage, handelMouseEnter, handelMouseLeave } = this.props;
+        console.log(mouseIn,'+++')
+        const pageList = [];
+        for (let i = (page - 2) * 10; i < page * 10; i++) {
+            pageList.push(
+                <SearchInfoItem key={i}>{list[i]}</SearchInfoItem>
+            )
+        }
+        if (focused || mouseIn) {
+            // console.log(this)
             return (
-                <SearchInfo>
+                <SearchInfo
+                    onMouseEnter={handelMouseEnter}
+                    onMouseLeave={handelMouseLeave}
+                >
                     <SearchInfoTitle>
                     热门搜索
                     <SearchInfoSwitch>换一批</SearchInfoSwitch>
                     </SearchInfoTitle>
                     <SearInfoList>
-                        { 
-                            this.props.list.map((item) => {
-                                return <SearchInfoItem key={item}>{item}</SearchInfoItem>
-                            })
-                           
-                        }
+                        { pageList }
                     </SearInfoList>  
                 </SearchInfo>  
             )
         }
     }
     render() {
+        const { focused, handleInputFocus, handelInputBlur } = this.props;
         return (
             <HeaderWrapper>
           <Logo />
@@ -53,12 +60,12 @@ class Header extends Component {
               </NavItem> 
               <SearchWapper>
                   <NavSearch 
-                    className = {this.props.focused ? 'focused' : ''}
-                    onFocus = {this.props.handleInputFocus}
-                    onBlur = {this.props.handelInputBlur}
+                    className = {focused ? 'focused' : ''}
+                    onFocus = {handleInputFocus}
+                    onBlur = {handelInputBlur}
                   >
                   </NavSearch>
-                  <i className = {this.props.focused ? 'focused iconfont' : 'iconfont'}>&#xe614;</i>
+                  <i className = {focused ? 'focused iconfont' : 'iconfont'}>&#xe614;</i>
                 { this.getListArea()}
               </SearchWapper>
           </Nav>
@@ -79,19 +86,29 @@ const mapStateProps = (state) => {
     console.log(state)
     return {
         focused: state.header.focused,
-        list: state.header.list
+        list: state.header.list,
+        page: state.header.page,
+        totalPage: state.header.totalPage,
+        mouseIn: state.header.mouseIn
     }
 }
 
 const mapDispathToProps = (dispatch) => {
     return {
         handleInputFocus() {
-            dispatch(actionCreators.searchFocus());
+            // dispatch(actionCreators.searchFocus());
             dispatch(actionCreators.getList());
-            console.log(this)
         },
         handelInputBlur() {
             dispatch(actionCreators.searchBlur())
+        },
+        handelMouseEnter() {
+            console.log(111)
+            dispatch(actionCreators.mouseEnter())
+        },
+        handelMouseLeave() {
+            console.log(222)
+            dispatch(actionCreators.mouseLeave())
         }
     }
 }
